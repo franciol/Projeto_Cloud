@@ -2,7 +2,7 @@ from flask import Flask
 import requests
 
 
-db_url = str(input())
+db_url = server = os.environ.get('IPSERVIDOR')
 
 app = Flask(__name__)
 
