@@ -2,15 +2,25 @@ from flask import Flask
 import requests
 
 
-
+db_url = str(input())
 
 app = Flask(__name__)
+
+@app.route('/SETUP_ALL/',methods=['POST'])
+def setuping():
+    requests.put('http://admin:admin@%s:5000/tarefas'% db_url)
+    json1 = '{"id": "_design/des","key": "_design/des","value": {"rev": "2-ef919c2734435196499689d9112b9599"},"doc": {"_id": "_design/des","_rev": "2-ef919c2734435196499689d9112b9599","views": {"getMaxID": {"reduce": "function (keys, values, rereduce) {\n  if (rereduce) {\n    return max(values);\n  } else {\n    return 0;\n  }\n}","map": "function (doc) {\n  emit(doc._id, 1);\n}"},"get_data": {"map": "function (doc) {\n  emit(doc._id, deb.tarefa, doc.quando);\n}"}},"language": "javascript"}}' 
+    requests.put('http://admin:admin@%s:5000/tarefas_design/des'% db_url,data=json1)
+    
+    
+
+    return "Status : Success"
 
 
 @app.route('/Tarefa/', methods=['GET'])
 def get_tarefas():
     
-    return requests.get('').json()
+    return requests.get('%s:5000' % (db_url)).json()
 
 
 @app.route('/Tarefa/', methods=['POST'])
