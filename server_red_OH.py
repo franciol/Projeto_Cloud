@@ -1,6 +1,6 @@
 from flask import Flask
 import requests
-
+import os
 
 db_url = server = os.environ.get('IPSERVIDOR')
 
