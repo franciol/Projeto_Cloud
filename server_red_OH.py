@@ -20,7 +20,7 @@ def setuping():
 @app.route('/Tarefa/', methods=['GET'])
 def get_tarefas():
     
-    return requests.get('%s:5000' % (db_url)).json()
+    return requests.get('http://%s:5000/' % (db_url)).json()
 
 
 @app.route('/Tarefa/', methods=['POST'])
