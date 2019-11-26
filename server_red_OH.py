@@ -51,7 +51,7 @@ def altera_especiifca(id):
     data = request.form.to_dict(flat=False)
     rev = requests.get('http://%s:5000/tarefas/_design/des/_views/get_data/%s' % (db_url,id)).json()['_rev']
     data1 = '{"quando":"%s","tarefa":"%s","_rev":"%s"}' % (data['quando'],data['tarefa'],rev)
-    resp = requests.put('http://%s:5000/tarefas/_design/des/%s' % (db_url, id), data=data1)
+    resp = requests.put('http://%s:5000/tarefas/_design/des/%s' % (db_url, id), json=data1)
     return resp.json()
 
 
