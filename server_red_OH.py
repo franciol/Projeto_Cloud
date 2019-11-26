@@ -55,7 +55,7 @@ def altera_especiifca(id):
 
 @app.route('/healthcheck/', methods=['GET'])
 def helath():
-    return ""
+    return "Oi\n"
 
 
 
