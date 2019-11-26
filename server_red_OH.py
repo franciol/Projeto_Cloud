@@ -25,7 +25,8 @@ def get_tarefas():
 def post_tarefas():
     dados_a_serem_salvos = request.form.to_dict(flat=False)
     uuid = requests.get('http://%s:5000/_uuids' % (db_url)).json()['uuids'][0]
-    resp = requests.put('http://admin:admin@%s:5000/tarefas/%s' % (db_url, uuid), data=dados_a_serem_salvos)
+    print(uuid)
+    resp = requests.put('http://admin:admin@%s:5000/tarefas/%s' % (db_url, uuid), json=dados_a_serem_salvos)
     return resp.json()
     
 
