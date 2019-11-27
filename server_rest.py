@@ -42,9 +42,11 @@ def altera_especiifca(id):
 
 @app.route('/healthcheck/', methods=['GET'])
 def helath():
-    return "Oi\n"
+    return ""
 
-
+@app.route('/')
+def aaa():
+    return requests.get('http://%s:5000/' % (db_url)).json()
 
 
 if __name__ == "__main__":

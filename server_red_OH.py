@@ -59,7 +59,9 @@ def altera_especiifca(id):
 def helath():
     return "Oi\n"
 
-
+@app.route('/')
+def aaa():
+    return requests.get('http://%s:5000/' % (db_url)).json()
 
 
 if __name__ == "__main__":
