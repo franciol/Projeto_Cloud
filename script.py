@@ -210,6 +210,7 @@ filters = [
 ]
 OH_ELASTIC = {'Allocation ID':"","Elastic IP":""}
 NV_ELASTIC = {'Allocation ID':"","Elastic IP":""}
+NV2_ELASTIC = {'Allocation ID':"","Elastic IP":""}
 
     # OH
 OH_NEED_CREATE = True
@@ -469,19 +470,21 @@ print("Instance %s created" % (NOME_INSTANCIA_RED_NV))
 print("Waiting for Instance %s" % (NOME_INSTANCIA_RED_NV))
 waiterInicialize_NV.wait(InstanceIds=[instance[0].id])
 instancias_DICTS['AS_NV'] = instance
-
-NV_NEED_CREATE = True
+filters = [
+    {'Name': 'domain', 'Values': ['vpc']}
+]
+NV2_NEED_CREATE = True
 response = ec2_client_NV.describe_addresses(Filters=filters)
 try:
     for i in response['Addresses']:
         if 'NetworkInterfaceId' not in i:
-            NV_NEED_CREATE = False
+            NV2_NEED_CREATE = False
             NV2_ELASTIC['Allocation ID'] = i['AllocationId']
             NV2_ELASTIC['Elastic IP'] = i['PublicIp']
 except Exception as e: 
     print("ERROR ",e)
 
-if NV_NEED_CREATE:
+if NV2_NEED_CREATE:
     response = ec2_client_NV.allocate_address(Domain='vpc')
     NV2_ELASTIC['Allocation ID'] = response['AllocationId']
     NV2_ELASTIC['Elastic IP'] = response['PublicIp']
